@@ -10,6 +10,8 @@ ES_UN_ID = 116680003
 # Conceptos de entrenamiento, validación, conceptos activos y metadatos
 concepts_path = sys.argv[1]
 metadatos_path = sys.argv[2]
+uri_depth = sys.argv[3]
+word_depth = sys.argv[4]
 
 for i in range(1):
   print('Estamos por la prueba:', i)
@@ -40,8 +42,8 @@ for i in range(1):
   concepts_training = active_concepts
 
   # Hacemos los random walks
-  rws_URI = random_walks(concepts_training, depth=2)
-  rws_words = random_walks(concepts_training, depth=2)
+  rws_URI = random_walks(concepts_training, depth=uri_depth)
+  rws_words = random_walks(concepts_training, depth=word_depth)
 
   ### CORPUS DE RELACIONES ###
   with open(PATH + CORPUS + CORPUS_RELATIONS_FILE, 'w') as corpus_file:
