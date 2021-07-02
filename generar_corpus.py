@@ -1,14 +1,8 @@
 import json
 import random
-from postcoordinate_functions import string_keys_to_int, remove_duplicates, random_walks
+from postcoordinate_functions import string_keys_to_int, remove_duplicates, random_walks, get_jerarquia
 
-PATH = './'
-INPUT = 'input/'
-LOGS = 'logs/'
-MODELS = 'models/'
-DICT = 'dicts/'
-CORPUS = 'corpus/'
-CONCEPTS = 'concepts/'
+PATH, INPUT, LOGS, MODELS, DICT, CORPUS, CONCEPTS = get_jerarquia()
 
 ES_UN_ID = 116680003
 
@@ -103,7 +97,7 @@ for i in range(1):
           # Escogemos qué elemento va a mantenerse como ID que no sea la relación
           URI_n = random.randint(0, len(rwW) - 2)
           if URI_n == 1:
-            URI_n == 2
+            URI_n = 2
 
           lineMix = ''
 
@@ -122,7 +116,7 @@ for i in range(1):
           # Escogemos qué elemento va a mantenerse como ID que no sea la relación
           URI_n = random.randint(0, len(rwW) - 3)
           if URI_n == 1:
-            URI_n == 4
+            URI_n = 4
 
           lineMix = ''
 
