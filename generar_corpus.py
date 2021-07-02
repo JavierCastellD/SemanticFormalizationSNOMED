@@ -1,3 +1,4 @@
+import sys
 import json
 import random
 from postcoordinate_functions import string_keys_to_int, remove_duplicates, random_walks, get_jerarquia
@@ -6,11 +7,9 @@ PATH, INPUT, LOGS, MODELS, DICT, CORPUS, CONCEPTS = get_jerarquia()
 
 ES_UN_ID = 116680003
 
-# Conceptos de entrenamiento, validacin, conceptos activos y metadatos
-CONCEPTS_FILE = 'active_concepts.json'
-METADATOS_FILE = 'metadatos.json'
-CONCEPTS_FILE_INTERNATIONAL = 'active_concepts_international.json'
-METADATOS_FILE_INTERNATIONAL = 'metadatos_international.json'
+# Conceptos de entrenamiento, validación, conceptos activos y metadatos
+concepts_path = sys.argv[1]
+metadatos_path = sys.argv[2]
 
 for i in range(1):
   print('Estamos por la prueba:', i)
@@ -24,12 +23,12 @@ for i in range(1):
   CORPUS_RELATIONS_FILE = 'corpus_rel_' + id_prueba + '.txt'
 
   # Cargamos los conceptos activos
-  active_concepts_file = open(PATH + CONCEPTS + CONCEPTS_FILE)
+  active_concepts_file = open(PATH + CONCEPTS + concepts_path)
   active_concepts = string_keys_to_int(json.load(active_concepts_file))
   active_concepts_file.close()
 
   # Cargamos los metadatos
-  metadatos_file = open(PATH + CONCEPTS + METADATOS_FILE)
+  metadatos_file = open(PATH + CONCEPTS + metadatos_path)
   metadatos = string_keys_to_int(json.load(metadatos_file))
   metadatos_file.close()
 
