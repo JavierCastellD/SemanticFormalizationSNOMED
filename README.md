@@ -1,7 +1,9 @@
 # Formalización Semántica de Conceptos Clínicos mediante Grafos de Conocimiento: Aplicación a SNOMED CT
 Proyecto para realizar la formalización semántica de conceptos clínicos mediante grafos de conocimiento, aplicado como caso de uso a la terminología SNOMED CT. Máster Universitario en Inteligencia Artificial UPM. Curso 2020-2021.
 
-Los modelos finales de FastText para la versión internacional de SNOMED CT con todas las relaciones y solo las relaciones es_un[a], así como el modelo para la versión en español y los corpora utilizados para entrenar dichos modelos están disponibles en el siguiente enlace: [ENLACE]
+Los modelos finales de FastText para la versión internacional de SNOMED CT con todas las relaciones y solo las relaciones es_un[a], así como el modelo para la versión en español y los corpora utilizados para entrenar dichos modelos están disponibles en el siguiente enlace:
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5061247.svg)](https://doi.org/10.5281/zenodo.5061247)
 
 ## Estructura de ficheros
 La estructura predeterminada de ficheros que utilizamos es la que aparece a continuación, aunque puede ser modificada cambiando la función *get_jerarquia()* en el script *postcoordinate_functions.py*:\
