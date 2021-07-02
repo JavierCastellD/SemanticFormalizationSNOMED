@@ -20,13 +20,21 @@ En *dicts/* guardamos los diccionarios de vectores.\
 En *corpus/* estarían los corpora que utilizamos para entrenar los modelos.\
 En *concepts/* estarían los diccionarios con la información de los conceptos extraídos de los ficheros de SNOMED CT.
 ## Scripts
+### Generar diccionario de conceptos de SNOMED CT
+TODO
 ### Generar copurs
 Para generar el corpus simplemente hay que ejecutar el script *generar_corpus.py* llamándolo con la ruta relativa al fichero de conceptos y al fichero de metadatos dentro de la carpeta *concepts/* y con la profundidad de los caminos de palabras e IDs. Un camino de 1 equivale a la siguiente secuencia: (concepto1, relación12, concepto2), uno de camino 2 equivale a: (concepto1, relación12, concepto2, relation23, concepto3) y así sucesivamente.
 ```
 python3 generar_corpus.py conceptos_path metadatos_path id_depth word_depth
 ```
 ### Entrenar modelo
-Para entrenar el modelo hay que ejecutar el script **train_model.py** llamándolo con 'w2v' o 'ft' en función de si queremos entrenar Word2Vec o FastText, la ruta relativa al corpus dentro de la carpeta *corpus/*, los parámetros para los caminos tal y como hemos mencionado en el script anterior y los hiperparámetros del modelo respecto al tamaño de embedding y ventana.
-'''
+Para entrenar el modelo hay que ejecutar el script *train_model.py* llamándolo con 'w2v' o 'ft' en función de si queremos entrenar Word2Vec o FastText, la ruta relativa al corpus dentro de la carpeta *corpus/*, los parámetros para los caminos tal y como hemos mencionado en el script anterior y los hiperparámetros del modelo respecto al tamaño de embedding y ventana.
+```
 python3 train_model.py model corpus_path id_depth word_depth embedding_size window_size
-'''
+```
+### Obtener el diccionario de vectores para los conceptos de entrenamiento
+TODO
+### Evaluar el modelo
+TODO
+### Lectura de logs
+TODO
