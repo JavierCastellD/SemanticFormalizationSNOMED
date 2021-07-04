@@ -7,6 +7,16 @@ Los modelos finales de FastText para la versión internacional de SNOMED CT con 
 
 La memoria del TFM en la que se explica el proceso se puede ver en el siguiente enlace: [WIP]
 
+## Requisitos
+Los requisitos de librerías son los siguientes:
+- re == 2.2.1
+- gensim == 3.6.0
+- json == 2.0.9
+- nltk == 3.2.5
+- numpy == 1.19.5
+- pd == 1.1.5
+- sklearn == 0.22.2
+
 ## Estructura de ficheros
 La estructura predeterminada de ficheros que utilizamos es la que aparece a continuación, aunque puede ser modificada cambiando la función *get_jerarquia()* en el script *postcoordinate_functions.py*:\
 ./\
@@ -63,12 +73,3 @@ Para obtener la lectura del log de la evaluación hay que ejecutar el script *re
 ```
 python3 read_logs.py log_path concepts_path metadatos_path total_concepts
 ```
-## Requisitos
-Los requisitos de librerías son los siguientes:
-- re == 2.2.1
-- gensim == 3.6.0
-- json == 2.0.9
-- nltk == 3.2.5
-- numpy == 1.19.5
-- pd == 1.1.5
-- sklearn == 0.22.2
