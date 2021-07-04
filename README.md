@@ -63,3 +63,12 @@ Para obtener la lectura del log de la evaluación hay que ejecutar el script *re
 ```
 python3 read_logs.py log_path concepts_path metadatos_path total_concepts
 ```
+## Requisitos
+Los requisitos de librerías son los siguientes:
+- re == 2.2.1
+- gensim == 3.6.0
+- json == 2.0.9
+- nltk == 3.2.5
+- numpy == 1.19.5
+- pd == 1.1.5
+- sklearn == 0.22.2
