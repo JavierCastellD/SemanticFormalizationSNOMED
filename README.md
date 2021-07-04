@@ -5,6 +5,8 @@ Los modelos finales de FastText para la versión internacional de SNOMED CT con 
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5061247.svg)](https://doi.org/10.5281/zenodo.5061247)
 
+La memoria del TFM en la que se explica el proceso se puede ver en el siguiente enlace: [WIP]
+
 ## Estructura de ficheros
 La estructura predeterminada de ficheros que utilizamos es la que aparece a continuación, aunque puede ser modificada cambiando la función *get_jerarquia()* en el script *postcoordinate_functions.py*:\
 ./\
