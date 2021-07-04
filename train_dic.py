@@ -10,6 +10,7 @@ PATH, INPUT, LOGS, MODELS, DICT, CORPUS, CONCEPTS = get_jerarquia()
 model_name = sys.argv[1]
 model_path = sys.argv[2]
 concepts_path = sys.argv[3]
+language = sys.argv[4]
 
 for i in range(1):
     print('Paso:', i)
@@ -49,7 +50,7 @@ for i in range(1):
     for conceptID, concept in concepts_training.items():
         # Usaremos el FSN como clave
         name = preprocesar_frase(concept['FSN'])
-        palabras_name = nltk.word_tokenize(name, language='spanish')
+        palabras_name = nltk.word_tokenize(name, language=language)
         
         # Obtenemos el WE
         vectors = []
