@@ -23,7 +23,19 @@ En *corpus/* estarían los corpora que utilizamos para entrenar los modelos.\
 En *concepts/* estarían los diccionarios con la información de los conceptos extraídos de los ficheros de SNOMED CT.
 ## Scripts
 ### Generar diccionario de conceptos de SNOMED CT
-TODO
+Para obtener un diccionario con los conceptos de SNOMED CT en los que utiliza como clave sus IDs y tiene para cada entrada lo siguiente:
+- FSN: Fully Specified Name.
+- description: Las descripciones, incluida la que es el FSN.
+- relations: Tuplas que indican con qué elemento tiene una relación. El primer elemento de la tupla es el ConceptID del destino y el segundo elemento es qué tipo de relación es.
+- relationsAux: De cara a formar el corpus, este no tiene validez ya que solo lo utilizamos para que la relación es_un sea simétricas y podamos desplazarnos por el grafo más fácilmente para analizar ciertos aspectos o realizar algunas tareas como eliminar los metadatos.
+- definition: Una pequeña definición en español del concepto. Muy pocos conceptos la tienen.
+- semantic_tag: Indica a qué categoría semántica pertenece el concepto.
+- vecinos: Indica qué nodos son vecinos mediante qué relación, por lo que tiene forma de lista de [typeID, destID]. NO se está utilizando la falsa simetría que utilizan en Owl2Vec*.
+
+Al script *read_SNOMED.py* hay que pasarle el fichero de conceptos internacionales, el fichero de descripciones, el fichero de definiciones y el fichero de relaciones internacionales. Si se quiere utilizar una versión nacional de SNOMED hay que utilizar un fichero de descripciones y definiciones nacional, pero conceptos y relaciones siempre tiene que ser el internacional.
+```
+python3 read_SNOMED.py conceptos_internacional_path descriptions_path definitions_path relations_internacional_path
+```
 ### Generar copurs
 Para generar el corpus simplemente hay que ejecutar el script *generar_corpus.py* llamándolo con la ruta relativa al fichero de conceptos y al fichero de metadatos dentro de la carpeta *concepts/* y con la profundidad de los caminos de palabras e IDs. Un camino de 1 equivale a la siguiente secuencia: (concepto1, relación12, concepto2), uno de camino 2 equivale a: (concepto1, relación12, concepto2, relation23, concepto3) y así sucesivamente.
 ```
@@ -45,4 +57,7 @@ Para obtener un log con información del rendimiento del modelo, es necesario pa
 python3 evaluate_model.py model_type model_path language
 ```
 ### Lectura de logs
-TODO
+Para obtener la lectura del log de la evaluación hay que ejecutar el script *read_logs.py* pasándole como parámetros la ruta al log, los conceptos y los metadatos y el número total de conceptos de evaluación.
+```
+python3 read_logs.py log_path concepts_path metadatos_path total_concepts
+```
