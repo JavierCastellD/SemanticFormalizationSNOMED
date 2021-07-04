@@ -12,6 +12,7 @@ uri_n = int(sys.argv[3])
 word_n = int(sys.argv[4])
 embed_size = int(sys.argv[5])
 window_size = int(sys.argv[6])
+language = sys.argv[7]
 
 print('URI_n =', uri_n, '| Word_n =', word_n, '| Embed_size =', embed_size,'| Window_size =', window_size)
 
@@ -33,7 +34,7 @@ for i in range(1):
   with open(PATH + CORPUS + corpus_path) as corpus_pruebas_file:
     sentences_corpus = corpus_pruebas_file.readlines()
   
-  sentences = preprocesar_texto(sentences_corpus)
+  sentences = preprocesar_texto(sentences_corpus, language)
 
   if model_name == 'w2v':
     print('Entrenamos Word2Vec')
