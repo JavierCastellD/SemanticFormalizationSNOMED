@@ -9,6 +9,7 @@ PATH, INPUT, LOGS, MODELS, DICT, CORPUS, CONCEPTS = get_jerarquia()
 
 model_name = sys.argv[1]
 model_path = sys.argv[2]
+concepts_path = sys.argv[3]
 
 for i in range(1):
     print('Paso:', i)
@@ -20,7 +21,7 @@ for i in range(1):
     id_prueba = '_test' + str(i)
     
     # Diccionarios de conceptos
-    CONCEPTS_FILE = 'active_concepts.json'
+    CONCEPTS_FILE = concepts_path
 
     # Cargamos los conceptos de entrenamiento
     training_concepts_file = open(PATH + CONCEPTS + CONCEPTS_FILE)
