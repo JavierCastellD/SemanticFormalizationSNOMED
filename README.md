@@ -30,13 +30,19 @@ Para generar el corpus simplemente hay que ejecutar el script *generar_corpus.py
 python3 generar_corpus.py conceptos_path metadatos_path id_depth word_depth
 ```
 ### Entrenar modelo
-Para entrenar el modelo hay que ejecutar el script *train_model.py* llamándolo con 'w2v' o 'ft' en función de si queremos entrenar Word2Vec o FastText, la ruta relativa al corpus dentro de la carpeta *corpus/*, los parámetros para los caminos tal y como hemos mencionado en el script anterior y los hiperparámetros del modelo respecto al tamaño de embedding y ventana.
+Para entrenar el modelo hay que ejecutar el script *train_model.py* llamándolo con 'w2v' o 'ft' en función de si queremos entrenar Word2Vec o FastText, la ruta relativa al corpus dentro de la carpeta *corpus/*, los parámetros para los caminos tal y como hemos mencionado en el script anterior y los hiperparámetros del modelo respecto al tamaño de embedding y ventana. También hay que pasarle el idioma del corpus.
 ```
-python3 train_model.py model corpus_path id_depth word_depth embedding_size window_size
+python3 train_model.py model_type corpus_path id_depth word_depth embedding_size window_size language
 ```
 ### Obtener el diccionario de vectores para los conceptos de entrenamiento
-TODO
+Para obtener el diccionario de vectores de los conceptos de entrenamiento es necesario pasarle como entrada al script *train_dic.py* si estamos utilizando Word2Vec ('w2v') o FastText ('ft'), la ruta al modelo dentro de la carpeta *models/*, la ruta al fichero de conceptos de entranamiento dentro de *concepts/* y el idioma del corpus (english si inglés, spanish si español, etc.).
+```
+python3 train_dic.py model_type model_path concepts_path language
+```
 ### Evaluar el modelo
-TODO
+Para obtener un log con información del rendimiento del modelo, es necesario pasarle al script *evaluate_model.py* el tipo de modelo de lenguaje que se está usando, la ruta hasta el modelo y el idioma del corpus (english si inglés, spanish si español, etc.). El concepto de entrenamiento y el concepto de evaluación hay que modificarlos dentro del código para permitir la evaluación de varios conjuntos.
+```
+python3 evaluate_model.py model_type model_path language
+```
 ### Lectura de logs
 TODO
