@@ -3,7 +3,7 @@ Proyecto para realizar la formalización semántica de conceptos clínicos media
 
 Los modelos finales de FastText para la versión internacional de SNOMED CT con todas las relaciones y solo las relaciones es_un[a], así como el modelo para la versión en español  están disponibles en el siguiente enlace:
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5061247.svg)](https://doi.org/10.5281/zenodo.5061247)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5069604.svg)](https://doi.org/10.5281/zenodo.5069604)
 
 La memoria del TFM en la que se explica el proceso se puede ver en el siguiente enlace: [WIP]
 
