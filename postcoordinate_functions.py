@@ -176,11 +176,11 @@ def mas_similar(embeddings, names, ids, vector, n=10):
 
 # Compara cuál es la categoría semántica más común entre los n primeros elementos
 # de list_similar. Devuelve esa categoría y cuál es el primer elemento de ese tipo
-def mismo_semantic_tag(list_similar, concepts_training, n=5):
+def mismo_semantic_tag(list_similar, concepts_training, list_len=5):
     aux = {}
 
     n = 0
-    for _, id, _ in list_similar[:n]:
+    for _, id, _ in list_similar[:list_len]:
         st = concepts_training[id]['semantic_tag']
         if st in aux:
             aux[st]['val'] += 1
