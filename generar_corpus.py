@@ -7,128 +7,138 @@ PATH, INPUT, LOGS, MODELS, DICT, CORPUS, CONCEPTS = get_jerarquia()
 
 ES_UN_ID = 116680003
 
-# Conceptos de entrenamiento, validación, conceptos activos y metadatos
+# Path to the concepts file
 concepts_path = sys.argv[1]
+
+# Path to the metadata file
 metadatos_path = sys.argv[2]
+
+# Depth of URI random walks
 uri_depth = sys.argv[3]
+
+# Depth of word random walks
 word_depth = sys.argv[4]
 
 for i in range(1):
-  print('Estamos por la prueba:', i)
-  #############################################
-  # ACTUALIZAMOS LOS NOMBRES DE LAS VARIABLES #
-  #############################################
-  # Identificador de prueba
-  id_prueba = '_test' + str(i) 
+    print('Test', i)
+    ###############################
+    # UPDATING RELEVANT VARIABLES #
+    ###############################
+    # Test ID
+    id_prueba = '_test' + str(i)
 
-  # Corpus de texto
-  CORPUS_RELATIONS_FILE = 'corpus_rel_' + id_prueba + '.txt'
+    # File for the text corpus
+    CORPUS_RELATIONS_FILE = 'corpus_rel_' + id_prueba + '.txt'
 
-  # Cargamos los conceptos activos
-  active_concepts_file = open(PATH + CONCEPTS + concepts_path)
-  active_concepts = string_keys_to_int(json.load(active_concepts_file))
-  active_concepts_file.close()
+    # Loading the concepts file
+    active_concepts_file = open(PATH + CONCEPTS + concepts_path)
+    active_concepts = string_keys_to_int(json.load(active_concepts_file))
+    active_concepts_file.close()
 
-  # Cargamos los metadatos
-  metadatos_file = open(PATH + CONCEPTS + metadatos_path)
-  metadatos = string_keys_to_int(json.load(metadatos_file))
-  metadatos_file.close()
+    # Load the metadata file
+    metadatos_file = open(PATH + CONCEPTS + metadatos_path)
+    metadatos = string_keys_to_int(json.load(metadatos_file))
+    metadatos_file.close()
 
-  #######################
-  # GENERAMOS El CORPUS #
-  #######################
-  print('Generando el corpus')
-  # Ponemos los conceptos de entrenamiento
-  concepts_training = active_concepts
+    #######################
+    # GENERATE THE CORPUS #
+    #######################
+    print('Generating the corpus')
 
-  # Hacemos los random walks
-  rws_URI = random_walks(concepts_training, depth=uri_depth)
-  rws_words = random_walks(concepts_training, depth=word_depth)
+    # We choose the training concepts
+    concepts_training = active_concepts
 
-  ### CORPUS DE RELACIONES ###
-  with open(PATH + CORPUS + CORPUS_RELATIONS_FILE, 'w') as corpus_file:
-    # Hacemos primero las líneas del corpus de URIs/IDs
-    for rwU in rws_URI:
-      # Creamos las lineas del corpus de URIs
-      line = ''
+    # We perform the random walks for each type of corpora
+    rws_URI = random_walks(concepts_training, depth=uri_depth)
+    rws_words = random_walks(concepts_training, depth=word_depth)
 
-      if len(rwU) > 1:
-        for w in rwU:
-            line += str(w) + ' '
-      
-        corpus_file.write(line + '\n')
+    ### RELATIONSHIP CORPUS ###
+    with open(PATH + CORPUS + CORPUS_RELATIONS_FILE, 'w') as corpus_file:
+        # We first obtain the sentences of only IDs/URIs
+        for rwU in rws_URI:
+            line = ''
 
-    # Después hacemos las líneas del corpus de palabras
-    for rwW in rws_words:
-      if rwW is not None:
-        if len(rwW) == 5:
-          # Obtenemos los nombres involucrados que no estén repetidos
-          sources = remove_duplicates(concepts_training[rwW[0]]['description'])
-          destinations = remove_duplicates(concepts_training[rwW[2]]['description'])
-          destinations2 = remove_duplicates(concepts_training[rwW[4]]['description'])
+            if len(rwU) > 1:
+                for w in rwU:
+                    line += str(w) + ' '
 
-          for source in sources:
-            for dest in destinations:
-              for dest2 in destinations2:
-                lineLabeled = source + ' ' + str(rwW[1]) + ' ' + dest + ' ' + str(rwW[3]) + ' ' + dest2
+                corpus_file.write(line + '\n')
 
-                corpus_file.write(lineLabeled + ' \n')
-          
-        elif len(rwW) == 3:
-          # Obtenemos los nombres involucrados que no estén repetidos
-          sources = remove_duplicates(concepts_training[rwW[0]]['description'])
-          destinations = remove_duplicates(concepts_training[rwW[2]]['description'])
+        # We then obtain the sentence of only words
+        # Relationships are represented by their IDs
+        for rwW in rws_words:
+            if rwW is not None:
+                if len(rwW) == 5:
+                    # Obtaining the names involved in the sentence and remove the duplicates between their synonyms
+                    sources = remove_duplicates(concepts_training[rwW[0]]['description'])
+                    destinations = remove_duplicates(concepts_training[rwW[2]]['description'])
+                    destinations2 = remove_duplicates(concepts_training[rwW[4]]['description'])
 
-          for source in sources:
-            for dest in destinations:
-              lineLabeled = source + ' ' + str(rwW[1]) + ' ' + dest
+                    for source in sources:
+                        for dest in destinations:
+                            for dest2 in destinations2:
+                                lineLabeled = source + ' ' + str(rwW[1]) + ' ' + dest + ' ' + str(rwW[3]) + ' ' + dest2
 
-              corpus_file.write(lineLabeled + ' \n')
-        elif len(rwW) == 1:
-          # Obtenemos los nombres involucrados que no estén repetidos
-          sources = remove_duplicates(concepts_training[rwW[0]]['description'])
+                                corpus_file.write(lineLabeled + ' \n')
 
-          for source in sources:
-            corpus_file.write(source + ' \n')
-          
-    # Finalmente hacemos las líneas del corpus combinado   
-    for rwW in rws_words:
-      if rwW is not None and len(rwW) > 1:
-        if len(rwW) == 3:
-          # Escogemos qué elemento va a mantenerse como ID que no sea la relación
-          URI_n = random.randint(0, len(rwW) - 2)
-          if URI_n == 1:
-            URI_n = 2
+                elif len(rwW) == 3:
+                    # Obtaining the names involved in the sentence and remove the duplicates between their synonyms
+                    sources = remove_duplicates(concepts_training[rwW[0]]['description'])
+                    destinations = remove_duplicates(concepts_training[rwW[2]]['description'])
 
-          lineMix = ''
+                    for source in sources:
+                        for dest in destinations:
+                            lineLabeled = source + ' ' + str(rwW[1]) + ' ' + dest
 
-          for i, w in enumerate(rwW):
-            if i != URI_n:
-              if w in concepts_training:
-                lineMix += concepts_training[w]['FSN'] + ' '
-              else:
-                # Esto es para las relaciones con URI
-                lineMix += str(w) + ' '
-            else:
-              lineMix += str(w) + ' '
+                            corpus_file.write(lineLabeled + ' \n')
+                elif len(rwW) == 1:
+                    # Obtaining the names involved in the sentence and remove the duplicates between their synonyms
+                    sources = remove_duplicates(concepts_training[rwW[0]]['description'])
 
-          corpus_file.write(lineMix + '\n')
-        elif len(rwW) == 5:
-          # Escogemos qué elemento va a mantenerse como ID que no sea la relación
-          URI_n = random.randint(0, len(rwW) - 3)
-          if URI_n == 1:
-            URI_n = 4
+                    for source in sources:
+                        corpus_file.write(source + ' \n')
 
-          lineMix = ''
+        # Finally, we obtain the lines of combining IDs and words
+        # Relationships are represented by their IDs
+        for rwW in rws_words:
+            if rwW is not None and len(rwW) > 1:
+                if len(rwW) == 3:
+                    # We choose what element is going to appear as the ID
+                    # It can not be the relationship, since that will always be an ID
+                    URI_n = random.randint(0, len(rwW) - 2)
+                    if URI_n == 1:
+                        URI_n = 2
 
-          for i, w in enumerate(rwW):
-            if i != URI_n:
-              if w in concepts_training:
-                lineMix += concepts_training[w]['FSN'] + ' '
-              else:
-                # Esto es para las relaciones con URI
-                lineMix += str(w) + ' '
-            else:
-              lineMix += str(w) + ' '
+                    lineMix = ''
 
-          corpus_file.write(lineMix + '\n')
+                    for i, w in enumerate(rwW):
+                        if i != URI_n:
+                            if w in concepts_training:
+                                lineMix += concepts_training[w]['FSN'] + ' '
+                            else:
+                                # This is for the relationships represented as an ID
+                                lineMix += str(w) + ' '
+                        else:
+                            lineMix += str(w) + ' '
+
+                    corpus_file.write(lineMix + '\n')
+                elif len(rwW) == 5:
+                    # We choose what element is going to appear as the ID
+                    # It can not be the relationship, since that will always be an ID
+                    URI_n = random.randint(0, len(rwW) - 3)
+                    if URI_n == 1:
+                        URI_n = 4
+
+                    lineMix = ''
+
+                    for i, w in enumerate(rwW):
+                        if i != URI_n:
+                            if w in concepts_training:
+                                lineMix += concepts_training[w]['FSN'] + ' '
+                            else:
+                                # This is for the relationships represented as an ID
+                                lineMix += str(w) + ' '
+                        else:
+                            lineMix += str(w) + ' '
+
+                    corpus_file.write(lineMix + '\n')
