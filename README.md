@@ -47,17 +47,17 @@ As parameters for the script *read_SNOMED.py*, you need to pass the internationa
 python3 read_SNOMED.py conceptos_internacional_path descriptions_path definitions_path relations_internacional_path
 ```
 ### Generate corpus
-Para generar el corpus simplemente hay que ejecutar el script *generar_corpus.py* llamándolo con la ruta relativa al fichero de conceptos y al fichero de metadatos dentro de la carpeta *concepts/* y con la profundidad de los caminos de palabras e IDs. Un camino de 1 equivale a la siguiente secuencia: (concepto1, relación12, concepto2), uno de camino 2 equivale a: (concepto1, relación12, concepto2, relation23, concepto3) y así sucesivamente.
+To generate the corpus, we need to run the script *generar_corpus.py* with the relative path to the concepts file and to the metadata file inside the *concepts/* folder. You also need to specify the depth of the random walks for both word sentences and ID sentence. A walk of depth 1 equals the following sentence: (concept_1, relationship_1_2, concept_2); uno of depth 2 equals: (concept_1, relationship_1_2, concept_2, relationship_2_3, concept_3) and so on.
 ```
 python3 generar_corpus.py conceptos_path metadatos_path id_depth word_depth
 ```
 ### Train the model
-Para entrenar el modelo hay que ejecutar el script *train_model.py* llamándolo con 'w2v' o 'ft' en función de si queremos entrenar Word2Vec o FastText, la ruta relativa al corpus dentro de la carpeta *corpus/*, los parámetros para los caminos tal y como hemos mencionado en el script anterior y los hiperparámetros del modelo respecto al tamaño de embedding y ventana. También hay que pasarle el idioma del corpus.
+To train the model, you need to run the script *train_model.py*, indicating the model type ('w2v' if Word2Vec or 'ft' if FastText), the relative path to the corpus inside the *corpus/* folder, the depths for random walks, and the hyperparameters of the model, such as the embedding and window sizes. You also need to specify the language of the corpus.
 ```
 python3 train_model.py model_type corpus_path id_depth word_depth embedding_size window_size language
 ```
 ### Obtain word embedding dictionary for training concepts
-Para obtener el diccionario de vectores de los conceptos de entrenamiento es necesario pasarle como entrada al script *train_dic.py* si estamos utilizando Word2Vec ('w2v') o FastText ('ft'), la ruta al modelo dentro de la carpeta *models/*, la ruta al fichero de conceptos de entranamiento dentro de *concepts/* y el idioma del corpus (english si inglés, spanish si español, etc.).
+To obtain the word embedding dictionary for the training concept, you need to run the script *train_dic.py* indicating if we are using Word2Vec ('w2v') or FastText ('ft'), the path to the model inside the *models/* folder, the path to the training concepts file inside the *concepts/* folder, and the language of the corpus ('english' if English, 'spanish' if Spanish, etc.).
 ```
 python3 train_dic.py model_type model_path concepts_path language
 ```
