@@ -1,5 +1,5 @@
-# Towards the automatic building of SNOMED CT postcoordinated expressions
-This is the GitHub repository that contains the scripts used for the article *Towards the automatic building of SNOMED CT postcoordinated expressions*. Our aim is to develop a tool that can be used to create a suggestion of a postcoordinate expression for SNOMED CT given a clinical term. This tool uses word embedding similarity and analogies to generate such postcoordination.
+# Automatic building of SNOMED CT postcoordinated expressions through Knowledge Graph Embeddings
+This is the GitHub repository that contains the scripts used for the article *Automatic building of SNOMED CT postcoordinated expressions through Knowledge Graph Embeddings*. Our aim is to develop a tool that can be used to create a suggestion of a postcoordinate expression for SNOMED CT given a clinical term. This tool uses word embedding similarity and analogies to generate such postcoordination.
 
 We have made available a website to test the tool: [WIP]
 
@@ -25,12 +25,12 @@ The default file structure we used is the following, which can be changed by mod
 |-- corpus/\
 |-- concepts/
 
-En *input/* se pondrían los ficheros de entrada, siendo estos los siguientes ficheros de SNOMED CT: ficheros de relaciones, conceptos y descripciones internacional y fichero de descripciones español.\
-En *logs/* encontramos los logs obtenidos al realizar la evaluación.\
-En *models/* pondríamos los modelos entrenados de Word2Vec o FastText.\
-En *dicts/* guardamos los diccionarios de vectores.\
-En *corpus/* estarían los corpora que utilizamos para entrenar los modelos.\
-En *concepts/* estarían los diccionarios con la información de los conceptos extraídos de los ficheros de SNOMED CT.
+*input/* is where you can place the input files, which are the following SNOMED CT files: relationships, international concepts and descriptions, and Spanish descriptions file.\
+*logs/* is where we can find the evaluation logs.\
+*models/* is where we can find the trained embedding models.\
+*dicts/* is where we save the dictionaries that link concepts and embeddings.\
+*corpus/* is where we find the different corpora used to train the models.\
+*concepts/* is where we find the json with SNOMED CT concepts.
 ## Scripts
 ### Generate SNOMED CT concept dictionary
 Para obtener un diccionario con los conceptos de SNOMED CT en los que utiliza como clave sus IDs y tiene para cada entrada lo siguiente:
@@ -62,12 +62,12 @@ Para obtener el diccionario de vectores de los conceptos de entrenamiento es nec
 python3 train_dic.py model_type model_path concepts_path language
 ```
 ### Evaluate the model
-Para obtener un log con información del rendimiento del modelo, es necesario pasarle al script *evaluate_model.py* el tipo de modelo de lenguaje que se está usando, la ruta hasta el modelo y el idioma del corpus (english si inglés, spanish si español, etc.). El concepto de entrenamiento y el concepto de evaluación hay que modificarlos dentro del código para permitir la evaluación de varios conjuntos.
+To evaluate the model and obtain information about its performance, you need to run the script *evaluate_model.py* with which language model is being used, the path to said model and the corpus language ('english' for English, 'spanish' for Spanish, etc.). The training and evaluation concepts need to be modified from code to evaluate several subsets at once.
 ```
 python3 evaluate_model.py model_type model_path language
 ```
 ### Logs reading
-Para obtener la lectura del log de la evaluación hay que ejecutar el script *read_logs.py* pasándole como parámetros la ruta al log, los conceptos y los metadatos y el número total de conceptos de evaluación.
+To better understand the information of the evalutation log, you need to run the script *read_logs.py* with the following parameters: path to said log, path to concepts and metadata, and total number of evaluation concepts.
 ```
 python3 read_logs.py log_path concepts_path metadatos_path total_concepts
 ```
