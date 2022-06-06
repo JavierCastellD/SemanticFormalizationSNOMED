@@ -33,16 +33,16 @@ The default file structure we used is the following, which can be changed by mod
 *concepts/* is where we find the json with SNOMED CT concepts.
 ## Scripts
 ### Generate SNOMED CT concept dictionary
-Para obtener un diccionario con los conceptos de SNOMED CT en los que utiliza como clave sus IDs y tiene para cada entrada lo siguiente:
+To obtain the dictionary with the SNOMED CT concepts, where the key is the concept's ID and that is has the following structure:
 - FSN: Fully Specified Name.
-- description: Las descripciones, incluida la que es el FSN.
-- relations: Tuplas que indican con qué elemento tiene una relación. El primer elemento de la tupla es el ConceptID del destino y el segundo elemento es qué tipo de relación es.
-- relationsAux: De cara a formar el corpus, este no tiene validez ya que solo lo utilizamos para que la relación es_un sea simétricas y podamos desplazarnos por el grafo más fácilmente para analizar ciertos aspectos o realizar algunas tareas como eliminar los metadatos.
-- definition: Una pequeña definición en español del concepto. Muy pocos conceptos la tienen.
-- semantic_tag: Indica a qué categoría semántica pertenece el concepto.
-- vecinos: Indica qué nodos son vecinos mediante qué relación, por lo que tiene forma de lista de [typeID, destID]. NO se está utilizando la falsa simetría que utilizan en Owl2Vec*.
+- description: The descriptions of the concept, which are the synonyms and FSN.
+- relations: Tuples that indicate with which concept has a certain relationship. The first element of the tuple is the SCT ID of the tail concept and the second element is the ID of the relationship.
+- relationsAux: This is to create the corpus and it is not valid otherwise. This is used to create symmetry for is_a relationships and to be able to easily travel the graph to analyze certain aspects.
+- definition: A small definition of the concept in Spanish. Few concepts have it and it is not used.
+- semantic_tag: The semantic tag of the concept.
+- vecinos: Indicates which nodes are neighbours through a relationship and is a list of tuples [typeID, destID]. It is not using the false symmetry applied in Owl2Vec*.
 
-Al script *read_SNOMED.py* hay que pasarle el fichero de conceptos internacionales, el fichero de descripciones, el fichero de definiciones y el fichero de relaciones internacionales. Si se quiere utilizar una versión nacional de SNOMED hay que utilizar un fichero de descripciones y definiciones nacional, pero conceptos y relaciones siempre tiene que ser el internacional.
+As parameters for the script *read_SNOMED.py*, you need to pass the international files, the file with the descriptions, the file with the definitions, and the file with the international relationships. If you want to use a national version of SNOMED CT (such as the Spanish one), the description and definitions files need to be of the national version, while the concept and relationships ones need to be from the international version.
 ```
 python3 read_SNOMED.py conceptos_internacional_path descriptions_path definitions_path relations_internacional_path
 ```
@@ -62,7 +62,9 @@ Para obtener el diccionario de vectores de los conceptos de entrenamiento es nec
 python3 train_dic.py model_type model_path concepts_path language
 ```
 ### Evaluate the model
-To evaluate the model and obtain information about its performance, you need to run the script *evaluate_model.py* with which language model is being used, the path to said model and the corpus language ('english' for English, 'spanish' for Spanish, etc.). The training and evaluation concepts need to be modified from code to evaluate several subsets at once.
+To evaluate the model and obtain information about its performance, you need to run the script *evaluate_model.py* with which language model is being used ('w2v' for Word2Vec, 'ft' for FastText, 'bert' for BERT or 'sbert' for SBERT), the path to said model and the corpus language ('english' for English, 'spanish' for Spanish, etc.). The training and evaluation concepts need to be modified from code to evaluate several subsets at once. 
+
+If using SBERT, you can specify any word for the model_path. The tokenizer and the SBERT model needs to be change from code.
 ```
 python3 evaluate_model.py model_type model_path language
 ```
