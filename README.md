@@ -52,7 +52,7 @@ To generate the corpus, we need to run the script *generar_corpus.py* with the r
 python3 generar_corpus.py conceptos_path metadatos_path id_depth word_depth
 ```
 ### Train the model
-To train the model, you need to run the script *train_model.py*, indicating the model type ('w2v' for Word2Vec, 'ft' for FastText, 'bert' for BERT or 'sbert' for SBERT), the relative path to the corpus inside the *corpus/* folder, the depths for random walks, and the hyperparameters of the model, such as the embedding and window sizes. You also need to specify the language of the corpus.
+To train the model, you need to run the script *train_model.py*, indicating the model type ('w2v' for Word2Vec, 'ft' for FastText, or 'bert' for BERT), the relative path to the corpus inside the *corpus/* folder, the depths for random walks, and the hyperparameters of the model, such as the embedding and window sizes. You also need to specify the language of the corpus.
 ```
 python3 train_model.py model_type corpus_path id_depth word_depth embedding_size window_size language
 ```
