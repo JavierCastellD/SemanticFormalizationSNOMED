@@ -14,6 +14,9 @@ The library requirements are the following:
 - numpy == 1.19.5
 - pd == 1.1.5
 - sklearn == 0.22.2
+- transformers == 4.19.2
+- datasets == 2.2.2
+- sentence_transformers == 2.2.0
 
 ## File structure
 The default file structure we used is the following, which can be changed by modifying the function *get_jerarquia()* in the script *postcoordinate_functions.py*:
