@@ -52,12 +52,12 @@ To generate the corpus, we need to run the script *generar_corpus.py* with the r
 python3 generar_corpus.py conceptos_path metadatos_path id_depth word_depth
 ```
 ### Train the model
-To train the model, you need to run the script *train_model.py*, indicating the model type ('w2v' if Word2Vec or 'ft' if FastText), the relative path to the corpus inside the *corpus/* folder, the depths for random walks, and the hyperparameters of the model, such as the embedding and window sizes. You also need to specify the language of the corpus.
+To train the model, you need to run the script *train_model.py*, indicating the model type ('w2v' for Word2Vec, 'ft' for FastText, 'bert' for BERT or 'sbert' for SBERT), the relative path to the corpus inside the *corpus/* folder, the depths for random walks, and the hyperparameters of the model, such as the embedding and window sizes. You also need to specify the language of the corpus.
 ```
 python3 train_model.py model_type corpus_path id_depth word_depth embedding_size window_size language
 ```
 ### Obtain word embedding dictionary for training concepts
-To obtain the word embedding dictionary for the training concept, you need to run the script *train_dic.py* indicating if we are using Word2Vec ('w2v') or FastText ('ft'), the path to the model inside the *models/* folder, the path to the training concepts file inside the *concepts/* folder, and the language of the corpus ('english' if English, 'spanish' if Spanish, etc.).
+To obtain the word embedding dictionary for the training concept, you need to run the script *train_dic.py* indicating what embedding model we are using ('w2v' for Word2Vec, 'ft' for FastText, 'bert' for BERT or 'sbert' for SBERT), the path to the model inside the *models/* folder, the path to the training concepts file inside the *concepts/* folder, and the language of the corpus ('english' if English, 'spanish' if Spanish, etc.).
 ```
 python3 train_dic.py model_type model_path concepts_path language
 ```
