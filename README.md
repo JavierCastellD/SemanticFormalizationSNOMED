@@ -1,5 +1,5 @@
-# Automatic building of SNOMED CT postcoordinated expressions through Knowledge Graph Embeddings
-This is the GitHub repository that contains the scripts used for the article *Automatic building of SNOMED CT postcoordinated expressions through Knowledge Graph Embeddings*. Our aim is to develop a tool that can be used to create a suggestion of a postcoordinate expression for SNOMED CT given a clinical term. This tool uses word embedding similarity and analogies to generate such postcoordination.
+# Supporting SNOMED CT postcoordination with Knowledge Graph Embeddings
+This is the GitHub repository that contains the scripts used for the article *Supporting SNOMED CT postcoordination with Knowledge Graph Embeddings*. Our aim is to develop a tool that can be used to create a suggestion of a postcoordinate expression for SNOMED CT given a clinical term. This tool uses word embedding similarity and analogies to generate such postcoordination.
 
 We have made available a website to test the tool: [WIP]
 
